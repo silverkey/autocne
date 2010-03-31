@@ -1,0 +1,17 @@
+#
+# Very simple configuration file - Pay attention in what it needs:
+#
+# - The key on the left and the value on the rigth of the = symbol.
+# - Comment lines start with # as usual........
+# - Empty lines are not taken in consideration........
+# - All the spaces are removed before to parse each line so DO NOT USE spaces inside the key/value.
+# - Do not use " or ' or other strange symbols in the key/value they are not parsed and create problems.
+#
+
+data = /Users/remo/DATA
+gb_file = sequences.gbwithparts
+seq_file = 
+bioperl = /Users/remo/src/BioPerl-1.6.1
+
+# THE SCRIPT IS INTO THE BIOPERL FOLDER
+gb2gff3_script = /Users/remo/src/BioPerl-1.6.1/scripts/Bio-DB-GFF/genbank2gff3.PLS
