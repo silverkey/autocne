@@ -12,6 +12,7 @@ data = /Users/remo/DATA
 gb_file = sequences.gbwithparts
 seq_file = 
 bioperl = /Users/remo/src/BioPerl-1.6.1
+blast = /usr/local/ncbi/blast
 
 # THE SCRIPT IS INTO THE BIOPERL FOLDER
 gb2gff3_script = /Users/remo/src/BioPerl-1.6.1/scripts/Bio-DB-GFF/genbank2gff3.PLS
