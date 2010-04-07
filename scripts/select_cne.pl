@@ -23,11 +23,24 @@ my $db = Bio::DB::SeqFeature::Store->new(-adaptor => 'DBI::SQLite',
 my @features = $db->get_features_by_type('similarity');
 
 foreach my $feature(@features) {
+
 	my @identity = $feature->get_tag_values('identity');
 	my $identity = $identity[0];
 	$identity =~ s/^(\d+\.\d)\d+$/$1/;
+
 	my $length = $feature->length;
-	print "$length\t$identity\t";
-	print '*' if $length >= 100 && $identity >= 90;
-	print "\n";
+
+	next unless $length >= 50 && $identity >= 80;
+
+	my @feats = $db->get_features_by_location($feature->seq_id,$feature->start,$feature->end);
+
+	my $c = 0;
+
+	foreach my $f(@feats) {
+		$c ++ if $f->type =~ /^exon/;
+		$c ++ if $f->type =~ /^match/;
+	}
+
+	my $seq = $db->fetch_sequence($feature->seq_id,$feature->start,$feature->end);
+	print $feature->seq_id.':'.$feature->start.'-'.$feature->end." $seq\n" unless $c;
 }
