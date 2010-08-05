@@ -9,13 +9,20 @@ use lib '/Users/Remo/src/autocne';
 
 use Bio::DB::SeqFeature::Store;
 
-my $USAGE = "\nperl $0 [sqlite file] [directory]\n\n";
+my $USAGE = "\nperl $0 [sqlite file] [directory] [second organism sqlite] [second organism directory]\n\n";
 die $USAGE unless -d $ARGV[1];
 chdir($ARGV[1]);
 die $USAGE unless -e $ARGV[0];
 die $USAGE unless $ARGV[0] =~ /\.sqlite$/;
 
 my $sql_file = $ARGV[0];
+
+die $USAGE unless -d $ARGV[3];
+#chdir($ARGV[3]);
+die $USAGE unless -e $ARGV[2];
+die $USAGE unless $ARGV[2] =~ /\.sqlite$/;
+
+my $sql_file2 = $ARGV[0];
 
 my $db = Bio::DB::SeqFeature::Store->new(-adaptor => 'DBI::SQLite',
           							                 -dsn => $sql_file);
@@ -44,3 +51,7 @@ foreach my $feature(@features) {
 	my $seq = $db->fetch_sequence($feature->seq_id,$feature->start,$feature->end);
 	print $feature->seq_id.':'.$feature->start.'-'.$feature->end." $seq\n" unless $c;
 }
+
+sub get_second_organism_mapping {
+	my $f = shift;
+	
